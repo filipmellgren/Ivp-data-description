@@ -1,0 +1,116 @@
+---
+title: "Description of the IVP and UHV data"
+author: "Filip Mellgren"
+date: "4/14/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+data.frame(hp=seq(0, 100,len=100))
+```
+
+
+# IVP
+
+* Total number of observations: 292 244. 
+* Unit of observation: Unbalanced yearly panel data tracking pairs of production units and a "produktanpassad variant" of CN8, meaning that some CN8 are further divided into CN8 plus a letter. Furthermore, 'Statistikens framställning' describes the target observation to be a good: "Målobjekt i undersökningen är vara".
+
+[Link to data description 'Kvalitetsdeklaration' from 2019](https://www.scb.se/contentassets/5c89696f0b044be4a0b940874d9d5eae/nv0119_kd_2019_bs_200630.pdf)
+
+[Link to data description 'Statistikens framställning' from 2019](https://www.scb.se/contentassets/5c89696f0b044be4a0b940874d9d5eae/nv0119_staf_2019_ml_200630.pdf)
+
+
+[Link to data report from 2018](https://www.scb.se/contentassets/7c1d0b4f8f494fd880e6291227d057b5/nv0119_2018a01_sm_nv19sm2001.pdf)
+
+## Variables
+
+### P1023_Lopnr_PeOrgNr
+
+SCB uses "verksamhetsenhet", which is a production unit within a firm. Typically, only large firms are divided into production units and smaller firms are often represented by one production unit.
+
+Firms need to be active and registered in order to feasibly be included in the data set.
+
+All companies active in the Företagsdatabas (FDB) lin November last year with at least 20 employees (sometimes 10) that has industrial production are included in the IVP data. Smaller companies with more than 75 million in revenue the previous year are included. 
+
+Industries with cut off value at more than 10 employees: Det gäller branscherna Annan utvinning av mineral, Tillverkning av gödselmedel och kväveprodukter, Tillverkning av cement, kalk och gips, Tillverkning av varor av betong, cement och
+gips, Huggning, formning och slutlig bearbetning av sten samt Tillverkning av slipmedel och övriga icke-mineraliska produkter. 
+
+Firms that are too small to make it into the survey are modeled and get their value imputed by SCB (section 2.2.6 in their own documentation)
+
+
+### Ar
+
+Values between 1997 and 2017.
+
+### Varunr
+
+This code has 8 or 9 characters. The first eight characters represent the CN8 value, and when a ninth digit exists, it denotes something more specific. 
+
+### Typkod
+
+
+
+### Prodvarde
+
+The variable measures the total value of production of goods during the year. The production value does not take into account the status of the goods produced. I.e. the production value is the same irrespective of whether goods were sold or used to build a stock.
+
+However, production value is measured by potential sales value.
+
+Special cases include firms with shifted calendar year. 
+
+Firms that did not respond to the survey are imputed by taking the value from the last year a value was reported. That value is subsequently corrected using the overall development for its particular industry. Weighted by production value, such data corresponds to about 1 percent (data report from 2018, p.14).
+
+### Kvanttext
+
+This is a character variable describing the unit of measurement for quantity.
+
+* Is it changing over time for a given observation?
+
+### Levkvat
+
+This variable measures the quantity of the good that was delivered.
+
+
+### Totkvant
+
+This variable measures the total production of the good.
+
+### Apris
+
+### imp_prodvarde
+
+The variable "imp_prodvarde", is a boolean variables denoting whether the production value was imputed or not. Imputation is applied on companies that were too small to be sampled, and for companies that did not enter values in the survey.
+
+Running a logistic regression imp_prodvarde on log(prodvarde) gives a fitted curve that starts at one and quickly drops to zero as the log of production value rises that confirms that the value is 1 for firms with small production value.
+
+It is possible to read about how values were imputed in "Statistikens framställning". 
+
+### imp_levkvant
+
+
+
+### imp_totkvant
+
+
+# UHV
+TODO
+* Total number of observations: 
+* Unit of observation: Unbalanced monthly panel data tracking pairs of production units and CN8.
+* Differences between UHV and IVP include:
+  - Monthly data instead of yearly.
+  - Always CN8, not CN8 plus a letter.
+  - IVP has unique codes for industrial services.
+  - How small firms are treated (not sure how this is done in UHV).
+  - Accrual differences  (sv. "periodiseringsfel") between the two methods.
+  - Reporting can be handled by different people within the firm, leading to the same product being reported on different CN8 numbers.
+  
+
