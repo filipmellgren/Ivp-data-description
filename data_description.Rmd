@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = FALSE)
 ```
 
 ```{r}
@@ -15,7 +15,6 @@ library(tidyverse)
 
 
 ```{r}
-data.frame(hp=seq(0, 100,len=100))
 ```
 
 
@@ -86,19 +85,40 @@ This variable measures the total production of the good.
 
 ### Apris
 
+What is price if not for a single good? When was the price valid?
+
 ### imp_prodvarde
 
-The variable "imp_prodvarde", is a boolean variables denoting whether the production value was imputed or not. Imputation is applied on companies that were too small to be sampled, and for companies that did not enter values in the survey.
+The variable "imp_prodvarde", is a Boolean variable denoting whether the production value was imputed or not. Imputation is applied on companies that were too small to be sampled, and for companies that did not enter values in the survey.
 
 Running a logistic regression imp_prodvarde on log(prodvarde) gives a fitted curve that starts at one and quickly drops to zero as the log of production value rises that confirms that the value is 1 for firms with small production value.
 
 It is possible to read about how values were imputed in "Statistikens framställning". 
 
 ### imp_levkvant
-
-
+Similarly, this variable denotes whether delivered quantity was imputed.
 
 ### imp_totkvant
+The third and last imputation flag denotes whether the total quantity has been imputed.
+
+## Merge IVP with a kn8 to SPIN5 key
+How succesful is this?
+
+## Sigma U estimates
+
+$\sigma_U$ is estimated by solving the following specification:
+
+$$ \bar{y^2} = c_1 + \frac{(\sigma_u) * (\omega-1)}{(1 + \omega)*(\sigma_u-1)}* \bar{z_1} + \frac{\omega}{(1+\omega)({\sigma_u - 1})}* \bar{z^2}$$
+
+Where: 
+
+* $y^2 = ddupcprice^2$, the square of the double differenced log prices.
+* $z_1 = ddupcprice * ddfirmprodshare$
+* $z^2 = ddfirmprodshare^2$, the square of the double differenced log of production value relative to the sum of production within the lower unit of aggregation.
+
+And the variables with bars denote a mean value at the observation id level.
+
+
 
 
 # UHV

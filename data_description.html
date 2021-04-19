@@ -249,10 +249,11 @@ summary {
 </div>
 <div id="apris" class="section level3">
 <h3>Apris</h3>
+<p>What is price if not for a single good? When was the price valid?</p>
 </div>
 <div id="imp_prodvarde" class="section level3">
 <h3>imp_prodvarde</h3>
-<p>The variable “imp_prodvarde”, is a Boolean variables denoting whether the production value was imputed or not. Imputation is applied on companies that were too small to be sampled, and for companies that did not enter values in the survey.</p>
+<p>The variable “imp_prodvarde”, is a Boolean variable denoting whether the production value was imputed or not. Imputation is applied on companies that were too small to be sampled, and for companies that did not enter values in the survey.</p>
 <p>Running a logistic regression imp_prodvarde on log(prodvarde) gives a fitted curve that starts at one and quickly drops to zero as the log of production value rises that confirms that the value is 1 for firms with small production value.</p>
 <p>It is possible to read about how values were imputed in “Statistikens framställning”.</p>
 </div>
@@ -264,6 +265,22 @@ summary {
 <h3>imp_totkvant</h3>
 <p>The third and last imputation flag denotes whether the total quantity has been imputed.</p>
 </div>
+</div>
+<div id="merge-ivp-with-a-kn8-to-spin5-key" class="section level2">
+<h2>Merge IVP with a kn8 to SPIN5 key</h2>
+<p>How succesful is this?</p>
+</div>
+<div id="sigma-u-estimates" class="section level2">
+<h2>Sigma U estimates</h2>
+<p><span class="math inline">\(\sigma_U\)</span> is estimated by solving the following specification:</p>
+<p><span class="math display">\[ \bar{y^2} = c_1 + \frac{(\sigma_u) * (\omega-1)}{(1 + \omega)*(\sigma_u-1)}* \bar{z_1} + \frac{\omega}{(1+\omega)({\sigma_u - 1})}* \bar{z^2}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(y^2 = ddupcprice^2\)</span>, the square of the double differenced log prices.</li>
+<li><span class="math inline">\(z_1 = ddupcprice * ddfirmprodshare\)</span></li>
+<li><span class="math inline">\(z^2 = ddfirmprodshare^2\)</span>, the square of the double differenced log of production value relative to the sum of production within the lower unit of aggregation.</li>
+</ul>
+<p>And the variables with bars denote a mean value at the observation id level.</p>
 </div>
 </div>
 <div id="uhv" class="section level1">
